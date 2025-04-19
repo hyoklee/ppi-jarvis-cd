@@ -1,0 +1,36 @@
+name: ubuntu-24.04 spack-0.23.0
+
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+    - name: checkout spack
+      uses: actions/checkout@v4
+      with:
+        repository: spack/spack
+        ref: v0.23.0
+        path: ./spack
+    - name: checkout iowarp-install
+      uses: actions/checkout@v4
+      with:
+        repository: iowarp/iowarp-install
+        path: ./iowarp-install
+    - name: spack
+      run: |
+        . ./spack/share/spack/setup-env.sh
+        cd ./iowarp-install/
+        spack repo add iowarp-spack
+        spack install py-ppi-jarvis-cd
+    - name: test
+      run: |
+        . ./spack/share/spack/setup-env.sh
+        spack load py-ppi-jarvis-cd
+        jarvis bootstrap from local
+        jarvis rg build
