@@ -35,4 +35,7 @@ requires = [
 
 [tool.setuptools]
 packages = ["jarvis_cd"]
+include-package-data = true
 
+# [tool.setuptools.packages.find]
+# include = ["jarvis_cd", "jarvis_cd.*"]
