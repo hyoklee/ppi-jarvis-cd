@@ -35,3 +35,12 @@ requires = [
 
 [tool.setuptools]
 packages = ["jarvis_cd"]
+
+[tool.py-toml]
+includes = [
+    "jarvis_cd/**/*.py",
+    "platform_plugins_interface/**/*.py",
+    "pyproject.toml",
+    "README.md",
+    "LICENSE",
+]

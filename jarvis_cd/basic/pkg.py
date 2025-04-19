@@ -73,8 +73,9 @@ class PipelineIterator:
         self.repeat = ppl.config['iterator']['repeat']
         ppl.set_config_env_vars()
         self.iter_out = os.path.expandvars(ppl.config['iterator']['output'])
-        print(f'ITER OUT: {self.iter_out} '
-              f'(from: {ppl.config['iterator']['output']})')
+        print(f'ITER OUT: {self.iter_out} ')
+        o = ppl.config['iterator']['output']
+        print(f'from: {o}')
         self.stats_path = f'{self.iter_out}/stats_dict.csv'
         self.stats = []
 
