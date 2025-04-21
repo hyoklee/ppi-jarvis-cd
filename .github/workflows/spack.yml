@@ -34,3 +34,8 @@ jobs:
         spack load py-ppi-jarvis-cd
         jarvis bootstrap from local
         jarvis rg build
+        mkdir -p ~/my_mod_repo/jarvis_example/jarvis_example
+        mkdir -p ~/my_mod_repo/jarvis_example/pipelines
+        jarvis repo add ~/my_mod_repo/jarvis_example
+        jarvis repo create compressor app
+        tree ~/my_mod_repo/
