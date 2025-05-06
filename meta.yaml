@@ -18,9 +18,12 @@ files:
 
 test:
   requires:
-    - pip
-  commands:
-    - pip --help
+    - pyaml
+    - pandas
+    - jarvis_util
+  imports:
+    - jarvis_cd
+
 
 about:
   home: https://grc.iit.edu/research/projects/iowarp/
