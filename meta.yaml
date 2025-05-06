@@ -12,6 +12,7 @@ requirements:
     - setuptools
   run:
     - python
+    - iowarp::jarvis_util    
 
 files:
   - README.md
@@ -20,7 +21,7 @@ test:
   requires:
     - pyaml
     - pandas
-    - jarvis_util
+    - iowarp::jarvis_util
   imports:
     - jarvis_cd
 
