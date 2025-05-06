@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package:
   name: jarvis_cd
   version: 0.0.0
@@ -13,55 +12,17 @@ requirements:
     - setuptools
   run:
     - python
-    - iowarp::jarvis_util    
 
 files:
   - README.md
 
 test:
   requires:
-    - pyaml
-    - pandas
-    - iowarp::jarvis_util
-  imports:
-    - jarvis_cd
-
+    - pip
+  commands:
+    - pip --help
 
 about:
   home: https://grc.iit.edu/research/projects/iowarp/
   license: BSD
   summary: IOWarp Jarvis CD Conda Package
-=======
-package:
-  name: jarvis_cd
-  version: 0.0.0
-
-source:
-  git_url: https://github.com/iowarp/platform-plugins-interface
-  git_depth: 1
-
-requirements:
-  build:
-    - python
-    - setuptools
-  run:
-    - python
-    - iowarp::jarvis_util    
-
-files:
-  - README.md
-
-test:
-  requires:
-    - pyaml
-    - pandas
-    - iowarp::jarvis_util
-  imports:
-    - jarvis_cd
-
-
-about:
-  home: https://grc.iit.edu/research/projects/iowarp/
-  license: BSD
-  summary: IOWarp Jarvis CD Conda Package
->>>>>>> upstream/main
