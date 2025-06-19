@@ -153,6 +153,8 @@ class PipelineIterator:
                 pkg._get_stat(stat_dict)
         # Save the stats to the list
         self.stats.append(stat_dict)
+        df = pd.DataFrame(self.stats)
+        df.to_csv(self.stats_path, index=False)
 
     def analysis(self):
         for pkg in self.ppl.sub_pkgs:
@@ -357,7 +359,7 @@ class Pkg(ABC):
             pass
         return self
 
-    def get_path(self, config=False, shared=False, private=False):
+    def get_path(self, config=False, shared=False, private=False, pkg=False):
         if shared:
             return self.shared_dir
         if private:
@@ -1048,6 +1050,10 @@ class Pipeline(Pkg):
         self.config['iterator']['loop'] = config['loop']
         self.config['iterator']['output'] = config['output']
         self.config['iterator']['repeat'] = config['repeat']
+        if 'kill' in config:
+            self.config['iterator']['kill'] = config['kill']
+        else:
+            self.config['iterator']['kill'] = False
         if 'norerun' in config:
             self.config['iterator']['norerun'] = config['norerun']
         return self
@@ -1135,10 +1141,13 @@ class Pipeline(Pkg):
         """
         Run the pipeline repeatedly with new configurations
         """
+        self.kill = self.config['iterator']['kill']
         if resume:
             self.log('[ITER] resume=True')
         self.iterator = PipelineIterator(self)
         conf_dict = self.iterator.begin()
+        self.log(f'[ITER] Will store results in: {self.iterator.stats_path}',
+                 Color.BRIGHT_BLUE)
         while conf_dict is not None:
             self.clean(with_iter_out=False)
             for i in range(self.iterator.repeat):
@@ -1152,7 +1161,7 @@ class Pipeline(Pkg):
                          f'[(rep) {i + 1}/{self.iterator.repeat}]: '
                          f'{self.iterator.linear_conf_dict}', Color.BRIGHT_BLUE)
                 self.iterator.config_pkgs(conf_dict)
-                self.run(kill=True)
+                self.run(kill=self.kill)
                 self.iterator.save_run(conf_dict)
                 self.clean(with_iter_out=False)
             conf_dict = self.iterator.next()
